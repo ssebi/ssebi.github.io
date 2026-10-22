@@ -1,263 +1,250 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Portfolio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sebastian Vidrea — iOS and Kotlin Multiplatform developer</title>
+<meta name="description" content="Senior iOS developer in Brașov, Romania. Swift, SwiftUI, Objective-C and Kotlin Multiplatform, with a focus on healthcare apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --ink: #16202e;
+    --muted: #5a6677;
+    --line: #dde3eb;
+    --accent: #1f5fbf;
+    --accent-soft: #e4edfa;
+    --radius-icon: 22.5%;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161f;
+      --surface: #18202c;
+      --ink: #e8edf4;
+      --muted: #9aa6b6;
+      --line: #2a3442;
+      --accent: #7aa8ec;
+      --accent-soft: #1d2b40;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+  /* Hero: the apps themselves, as a home-screen row */
+  .hero { padding: 72px 0 56px; }
+  .dock {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    margin-bottom: 40px;
+  }
+  .icon {
+    width: 64px; height: 64px; flex: none;
+    border-radius: var(--radius-icon);
+    position: relative; overflow: hidden;
+    background: var(--tile, var(--accent));
+    color: #fff; font-weight: 800; font-size: 26px;
+    display: grid; place-items: center;
+    box-shadow: 0 1px 0 rgba(255,255,255,.25) inset, 0 6px 16px -8px rgba(16,32,60,.45);
+  }
+  .icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--surface); }
+  .dock .icon { animation: pop .5s cubic-bezier(.2,.9,.3,1.3) both; animation-delay: calc(var(--i) * 60ms); }
+  @keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .dock .icon { animation: none; } }
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Projects</h1>
-					</header>
+  .name { font-size: 18px; font-weight: 600; margin: 0 0 10px; }
+  h1 {
+    font-size: clamp(40px, 7vw, 68px);
+    line-height: 1.02; letter-spacing: -0.035em; font-weight: 800;
+    margin: 0 0 18px; max-width: 15ch;
+  }
+  .intro { font-size: 20px; color: var(--muted); max-width: 40em; margin: 0 0 28px; }
+  .intro strong { color: var(--ink); font-weight: 600; }
+  .contact { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 18px; border-radius: 999px; font-weight: 600; font-size: 16px;
+    text-decoration: none; border: 1.5px solid var(--line); color: var(--ink); background: var(--surface);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark) { .btn.primary { color: #0d1522; } }
+  .btn:hover { border-color: var(--accent); }
 
-				<!-- Projects -->
-					<div id="main">
+  /* Projects */
+  h2 { font-size: 15px; font-weight: 600; color: var(--muted); margin: 0 0 18px; letter-spacing: 0; }
+  .projects { padding: 8px 0 24px; }
+  .project {
+    display: grid; grid-template-columns: 64px 1fr; column-gap: 22px;
+    padding: 36px 0; border-top: 1px solid var(--line);
+  }
+  .project.has-shot { grid-template-columns: 64px 1fr 220px; }
+  .project h3 { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; margin: 2px 0 4px; font-weight: 700; }
+  .meta { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+  .meta a { font-weight: 600; }
+  .project p { margin: 0 0 12px; max-width: 38em; }
+  .role { padding-left: 14px; border-left: 3px solid var(--accent-soft); }
+  .stack { font-size: 15px; color: var(--muted); margin-top: 14px; }
+  .stack b { color: var(--ink); font-weight: 600; }
+  .shot {
+    align-self: start; border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--surface);
+  }
+  .shot img { width: 100%; height: auto; }
 
-						<!-- Texty-->
-						<section id="intro" class="main">
-							<div class="spotlight">
-								<div class="content">
-									<div class="app-row">
-										<div class="app-column-left">
-											<img class="app_icon" src="images/texty-logo.png" alt="">
-										</div>
-										<div class="app-column-right">
-											<h2 class="app_name">Texty</h2>
-										</div>
-									</div>
-									<h2>Short Description</h2>
-									<p>
-										Nowadays many people prefer text messages over calls. Texty enables people to send text messages to businesses that are still missing the ability to communicate in this way. 
-										<br/>
-										This app is still in development and will soon be available on the AppStore.
-									</p>
-									<h2>My Role</h2>
-									<p>
-										Sole developer. This app has a beautiful and modern design which was also a challenge to implement.
-									</p>
-									<h2>Technologies</h2>
-									<ul class="tech-list">
-										<li>RxSwift</li>
-										<li>Child ViewControllers</li>
-										<li>Advanced Animations</li>
-										<li>Custom Transitions</li>
-										<li>Firebase</li>
-										<li>Networking</li>
-										<li>GetStream chat SDK</li>
-										<li>Push Notifications</li>
-										<li>Universal Links</li>
-									</ul>
-								</div>
-								<span class="image"><img src="images/texty-image.png" alt="" /></span>
-							</div>
-						</section>
+  /* Earlier work: compact */
+  .earlier { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px 32px; padding: 28px 0 8px; border-top: 1px solid var(--line); }
+  .mini { display: grid; grid-template-columns: 48px 1fr; gap: 14px; }
+  .mini .icon { width: 48px; height: 48px; font-size: 20px; }
+  .mini h3 { font-size: 18px; margin: 0 0 2px; font-weight: 700; }
+  .mini p { margin: 0; font-size: 15px; color: var(--muted); }
 
-						<!-- Cardio -->
-						<section id="intro" class="main">
-							<div class="spotlight">
-								<div class="content">
-									<div class="app-row">
-										<div class="app-column-left">
-											<img class="app_icon" src="images/H4H-logo.png" alt="">
-										</div>
-										<div class="app-column-right">
-											<h2 class="app_name">Heart for Health</h2>
-										</div>
-									</div>
-									<h2>Short Description</h2>
-									<p>
-										Cardio is a health application designed to aid users in tracking their blood pressure and heart rate using a bluetooth connected device. Patients receive daily tasks they need to complete; They might have to complete health questionnaires or measure their blood pressure and heart rate.
-										<br/>
-										The app is still in development.
-									</p>
-									<h2>My Role</h2>
-									<p>
-										A big part of this app was already done. My initial task was to integrate the Objective C library used to connect the bluetooth connected health device. Afterwards I also integrated a database to store user's data. Displaying the data on a period of time was also a challenge I tackled by building a custom charts class. Because this was a medical app I had to get accustomed to the FHIR specifications. 
-									</p>
-									<h2>Technologies</h2>
-									<ul class="tech-list">
-										<li>Swift-Objective C interoperability</li>
-										<li>RxSwift</li>
-										<li>Programmatic User Interface</li>
-										<li>CouchbaseLite database</li>
-										<li>Bluetooth Connected Health Device</li>
-										<li>OpenID Authentication</li>
-										<li>Charts</li>
-										<li>FHIR®</li>
-										<li>Twilio</li>
-									</ul>
-								</div>
-								<span class="image"><img src="images/h4h-image.png" alt="" /></span>
-							</div>
-						</section>
+  footer { margin-top: 64px; padding: 32px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
 
-						<!-- MasjidLink -->
-						<section id="intro" class="main">
-							<div class="spotlight">
-								<div class="content">
-									<div class="app-row">
-										<div class="app-column-left">
-											<img class="app_icon" src="images/ML-logo.png" alt="">
-										</div>
-										<div class="app-column-right">
-											<h2 class="app_name">MasjidLink</h2>
-										</div>
-									</div>
-									<h2>Short Description</h2>
-									<p>
-										MasjidLink is an app designed for Muslims to connect with the Mosques or Businesses. Users can see all the events and announcements of an Organization (either Mosque or Business) after linking to it and they'll also get Adhan and Iqamah time changes notifications. Admins can also do quick edits of their Organizations from within the app.
-										<br/>
-										The app is currently on the AppStore and being used on a daily basis.
-									</p>
-									<h2>My Role</h2>
-									<p>
-										Developer in a team of two. I created the basic structure, defined the architecture and laid out the foundation of the app. I've also integrated CI using Fastlane. Afterwards, my role shifted towards supervising and I only stepped in when needed.
-									</p>
-									<h2>Technologies</h2>
-									<ul class="tech-list">
-										<li>RxSwift</li>
-										<li>Continuous Integration</li>
-										<li>Networking</li>
-										<li>Firebase</li>
-										<li>Push Notifications</li>
-										<li>Storyboards + Programmatic User Interface</li>
-									</ul>
-								</div>
-								<span class="image"><img src="images/ml-image.png" alt="" /></span>
-							</div>
-						</section>
+  @media (max-width: 760px) {
+    body { font-size: 16px; }
+    .hero { padding: 48px 0 40px; }
+    .intro { font-size: 18px; }
+    .project, .project.has-shot { grid-template-columns: 1fr; row-gap: 14px; }
+    .project .icon { width: 56px; height: 56px; }
+    .shot { max-width: 240px; }
+    .icon { width: 52px; height: 52px; font-size: 22px; }
+  }
+</style>
+</head>
+<body>
 
-						<!-- Keyvent -->
-							<section id="intro" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<div class="app-row">
-											<div class="app-column-left">
-												<img class="app_icon" src="images/keyvent-logo.png" alt="">
-											</div>
-											<div class="app-column-right">
-												<h2 class="app_name">Keyvent</h2>
-											</div>
-										</div>
-										<h2>Short Description</h2>
-										<p>Keyvent is an online ticketing platform. The app enables users to see featured events near them, search for events using different filters, buy tickets and see them in app. When a ticket is bought, a QR-code is generated and users have to get it scanned at entrance. 
-											<br/>
-											After a few months on the AppStore, I had to take it down since it lost backend support.</p>
-										<h2>My Role</h2>
-										<p>Sole developer. There was nothing created, only some vague mock-ups. Going through all the steps from defining the features, to creating the designs and finally the application was a great journey. We wanted to release the app in China as well, that's why I had to create multiple targets and some classes were totally different for the Chinese version of the app. One big difference was that we couldn't use Stripe to handle payments in China. We also couldn't use Google and Facebook logins.
-										</p>
-										<h2>Technologies</h2>
-										<ul class="tech-list">
-											<li>Design</li>
-											<li>Viper</li>
-											<li>Networking Alamofire</li>
-											<li>CoreData</li>
-											<li>Social Logins</li>
-											<li>Multiple Targets and Schemes management</li>
-											<li>Stripe</li>
-											<li>Alipay</li>
-											<li>Depp Linking</li>
-											<li>Universal Links</li>
-										</ul>
-									</div>
-									<span class="image"><img src="images/keyvent-image.png" alt="" /></span>
-								</div>
-							</section>
+<header class="hero">
+  <div class="wrap">
+    <div class="dock" aria-hidden="true">
+      <span class="icon" style="--i:0; --tile:#0f62fe">e</span>
+      <span class="icon" style="--i:1; --tile:#5b4bdb">M</span>
+      <span class="icon" style="--i:2; --tile:#d93a4e"><img src="images/H4H-logo.png" alt="" onerror="this.remove()">H</span>
+      <span class="icon" style="--i:3; --tile:#1a9e7a"><img src="images/texty-logo.png" alt="" onerror="this.remove()">T</span>
+      <span class="icon" style="--i:4; --tile:#0e7c86"><img src="images/ML-logo.png" alt="" onerror="this.remove()">M</span>
+      <span class="icon" style="--i:5; --tile:#e07a1f"><img src="images/keyventmanager-logo.png" alt="" onerror="this.remove()">K</span>
+      <span class="icon" style="--i:6; --tile:#c2410c"><img src="images/keyvent-logo.png" alt="" onerror="this.remove()">K</span>
+      <span class="icon" style="--i:7; --tile:#27272a"><img src="images/noise-logo.png" alt="" onerror="this.remove()">N</span>
+    </div>
+    <p class="name">Sebastian Vidrea</p>
+    <h1>Ten years building for Apple platforms, with a focus on healthcare.</h1>
+    <p class="intro">Senior iOS and <strong>Kotlin Multiplatform</strong> developer in Brașov, Romania. I take apps from first sketch to the App Store, and right now I'm working on the core library behind <strong>Germany's national electronic patient record</strong>. Open to on-site, hybrid and remote roles.</p>
+    <nav class="contact" aria-label="Contact">
+      <a class="btn primary" href="mailto:vidreasebastian@gmail.com?subject=Hello%20from%20your%20portfolio">Email me</a>      <a class="btn" href="https://www.linkedin.com/in/sebastian-vidrea">LinkedIn</a>
+      <a class="btn" href="cv.pdf">Download CV (PDF)</a>
+    </nav>
+  </div>
+</header>
 
-							<!-- Keyvent Manager -->
-							<section id="intro" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<div class="app-row">
-											<div class="app-column-left">
-												<img class="app_icon" src="images/keyventmanager-logo.png" alt="">
-											</div>
-											<div class="app-column-right">
-												<h2 class="app_name">Keyvent Manager</h2>
-											</div>
-										</div>
-										<h2>Short Description</h2>
-										<p>
-											This app allows event employees to scan event tickets (QR-codes) at the entrance. Employees can grant or deny access. There's also a fallback to enter the code manually if the scan doesn't work.
-											<br/>
-											This application is currently on the AppStore and it's being used to scan tickets.
-										</p>
-										<h2>My Role</h2>
-										<p>
-											Sole developer. Same as Keyvent app, I ran through the whole process from design to development with this app. Because this app uses camera to scan QR-codes, battery can easily drain so the scanning stops after a few minutes of inactivity. We also wanted to improve the scanning experience so I've added some beautiful animations using Lottie.</p>
-										</p>
-										<h2>Technologies</h2>
-										<ul class="tech-list">
-											<li>Design</li>
-											<li>Lottie Animations</li>
-											<li>Networking using URLSession</li>
-											<li>CoreData</li>
-											<li>AVFoundation</li>
-											<li>Crashlitycs</li>
-										</ul>
-									</div>
-									<span class="image"><img src="images/keyventmanager-image.png" alt="" /></span>
-								</div>
-							</section>
+<main class="projects">
+  <div class="wrap">
+    <h2>Selected work, newest first</h2>
 
-							<!-- Noise Festival-->
-							<section id="intro" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<div class="app-row">
-											<div class="app-column-left">
-												<img class="app_icon" src="images/noise-logo.png" alt="">
-											</div>
-											<div class="app-column-right">
-												<h2 class="app_name">Noise Festival</h2>
-											</div>
-										</div>
-										<h2>Short Description</h2>
-										<p>
-											This was a companion app for a festival that took place in Brasov, Romania called Noise Festival. Users were able to see the artists, listen to their songs, see the news, the partners, info about the city and how to get there and most importantly, the stage times. They would also get real-time updates about who's going to perform next and on which stage.
-											<br/>
-											The app is currently not on the AppStore because it no longer brings any value after the Festival has ended.
-										</p>
-										<h2>My Role</h2>
-										<p>
-											Developer in a team of two. The app was 80% complete when I stepped in and I had to redesign the home page with the draggable view on bottom, create the Stages and Partners tabs.
-										</p>
-										<h2>Technologies</h2>
-										<ul class="tech-list">
-											<li>UIKit</li>
-											<li>Firebase</li>
-											<li>Push Notifications</li>
-											<li>Custom Animations</li>
-										</ul>
-									</div>
-									<span class="image"><img src="images/noise-image.png" alt="" /></span>
-								</div>
-							</section>
+    <article class="project">
+      <span class="icon" style="--tile:#0f62fe" aria-hidden="true">e</span>
+      <div>
+        <h3>ePA core library</h3>
+        <p class="meta">IBM, contract · 2023 – now</p>
+        <p>The core library behind a white-label app for Germany's ePA (elektronische Patientenakte, the national electronic patient record), built to gematik's specifications.</p>
+        <p class="role">I work on the inner layer: wrapping the C++ core in Objective-C and shipping it as a framework the iOS app integrates. Along the way I moved from Swift and Objective-C into Kotlin, bringing the framework into Kotlin Multiplatform code shared across iOS and Android.</p>
+        <p class="stack"><b>Built with</b> C++, Objective-C, Swift, Kotlin, Kotlin Multiplatform</p>
+      </div>
+    </article>
 
-					</div>
+    <article class="project">
+      <span class="icon" style="--tile:#5b4bdb" aria-hidden="true">M</span>
+      <div>
+        <h3>Mindless: Tasks &amp; Bookmarks</h3>
+        <p class="meta">The App Company, for JoWoCo, LLC · 2022 – 2023 · <a href="https://apps.apple.com/us/app/mindless-tasks-bookmarks/id6476235543">View on the App Store</a></p>
+        <p>A productivity app for iPhone, iPad and Mac that pulls notes, tasks, contacts and bookmarks into one tagged system. Share a link, set a reminder, and it brings you back at the right time.</p>
+        <p class="role">iOS and macOS developer. I built the contacts integration, so notes and reminders can be attached to people, and the link-saving and link-reminder features, and I developed the Mac app.</p>
+        <p class="stack"><b>Built with</b> Swift, SwiftUI, Realm, CI/CD</p>
+      </div>
+    </article>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; 2020 Sebastian Vidrea</p>
-					</footer>
+    <article class="project has-shot">
+      <span class="icon" style="--tile:#d93a4e" aria-hidden="true"><img src="images/H4H-logo.png" alt="" onerror="this.remove()">H</span>
+      <div>
+        <h3>Heart for Health</h3>
+        <p class="meta">Parhelion Software, for Heart for health ICT B.V. · 2021 – 2022 · <a href="https://apps.apple.com/nl/app/heart-for-health/id1441230811">View on the App Store</a></p>
+        <p>Patients track blood pressure, heart rate and other readings from a Bluetooth device, and get daily tasks such as questionnaires and measurements.</p>
+        <p class="role">I joined an existing project and took it through to App Store distribution: integrated an Objective-C Bluetooth library, added local storage for user data, built custom charts for readings over time, and worked with FHIR (Fast Healthcare Interoperability Resources) for medical data. I also wrote unit, integration and UI tests on Bitrise, with the UI tests capturing screenshots for each release.</p>
+        <p class="stack"><b>Built with</b> Swift, Objective-C, RxSwift, Couchbase Lite, Bluetooth, OpenID, FHIR, Twilio, Bitrise</p>
+      </div>
+      <figure class="shot"><img src="images/h4h-image.png" alt="Heart for Health app screens showing health readings" loading="lazy" onerror="this.parentElement.remove()"></figure>
+    </article>
 
-			</div>
+    <article class="project has-shot">
+      <span class="icon" style="--tile:#1a9e7a" aria-hidden="true"><img src="images/texty-logo.png" alt="" onerror="this.remove()">T</span>
+      <div>
+        <h3>Texty</h3>
+        <p class="meta">Parhelion Software · 2020 – 2021 · <a href="https://apps.apple.com/us/app/texty-pro-business-texting/id1491054470">View on the App Store</a></p>
+        <p>Lets people send text messages to businesses that otherwise only take phone calls.</p>
+        <p class="role">Sole iOS developer. I built its custom, animation-heavy design with child view controllers and custom transitions, then rewrote the app in React Native when the client moved to cross-platform.</p>
+        <p class="stack"><b>Built with</b> Swift, RxSwift, Firebase, Stream Chat, push notifications, universal links, React Native, TypeScript</p>
+      </div>
+      <figure class="shot"><img src="images/texty-image.png" alt="Texty app conversation screens" loading="lazy" onerror="this.parentElement.remove()"></figure>
+    </article>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+    <article class="project has-shot">
+      <span class="icon" style="--tile:#0e7c86" aria-hidden="true"><img src="images/ML-logo.png" alt="" onerror="this.remove()">M</span>
+      <div>
+        <h3>MasjidLink</h3>
+        <p class="meta">Parhelion Software · 2019</p>
+        <p>Connects people with their mosque or local businesses: events, announcements, and notifications when Adhan and Iqamah times change. Admins can edit their organization from the app.</p>
+        <p class="role">One of two developers. I set up the structure and architecture, added CI with Fastlane, then moved into a supervising role. In daily use on the App Store.</p>
+        <p class="stack"><b>Built with</b> Swift, RxSwift, Firebase, push notifications, Fastlane</p>
+      </div>
+      <figure class="shot"><img src="images/ml-image.png" alt="MasjidLink app showing mosque events and prayer times" loading="lazy" onerror="this.parentElement.remove()"></figure>
+    </article>
 
-	</body>
+    <h2 style="margin-top:40px">Earlier work</h2>
+    <div class="earlier">
+      <div class="mini">
+        <span class="icon" style="--tile:#e07a1f" aria-hidden="true"><img src="images/keyventmanager-logo.png" alt="" onerror="this.remove()">K</span>
+        <div>
+          <h3>Keyvent Manager</h3>
+          <p>Ticket scanner for event staff, with manual entry as a fallback, battery-saving camera timeout and Lottie scan feedback. Sole developer, design to release. Navatec, 2017 – 2018.</p>
+        </div>
+      </div>
+      <div class="mini">
+        <span class="icon" style="--tile:#c2410c" aria-hidden="true"><img src="images/keyvent-logo.png" alt="" onerror="this.remove()">K</span>
+        <div>
+          <h3>Keyvent</h3>
+          <p>Event discovery and ticketing with QR (Quick Response) code tickets, plus a separate China build using Alipay instead of Stripe and social logins. Sole developer. Navatec, 2017 – 2019.</p>
+        </div>
+      </div>
+      <div class="mini">
+        <span class="icon" style="--tile:#27272a" aria-hidden="true"><img src="images/noise-logo.png" alt="" onerror="this.remove()">N</span>
+        <div>
+          <h3>Noise Festival</h3>
+          <p>Companion app for a Brașov music festival: artists, schedules and live stage updates. Joined late; redesigned the home screen and built the Stages and Partners tabs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Sebastian Vidrea</span>
+    <span><a href="mailto:vidreasebastian@gmail.com?subject=Hello%20from%20your%20portfolio">vidreasebastian@gmail.com</a></span>
+  </div>
+</footer>
+
+
+</body>
 </html>
